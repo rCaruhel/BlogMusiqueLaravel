@@ -18,9 +18,12 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
+        'description',
+        'is_admin',
+        'group_id',
     ];
 
     /**
@@ -41,8 +44,14 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_admin' => 'boolean',
         ];
+    }
+
+
+    public function instruments()
+    {
+        return $this->belongsToMany(Instrument::class);
     }
 }
